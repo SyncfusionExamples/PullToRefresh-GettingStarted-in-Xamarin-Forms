@@ -3,7 +3,7 @@
 ## About the sample
 This repository contains the sample to help you get started with the Syncfusion's PulToRefresh control for Xamarin.Forms
 
-Create a new BlankApp (Xamarin.Forms.Portable) application in Xamarin Studio or Visual Studio for Xamarin.Forms.
+Create a new BlankApp (Xamarin.Forms.NET Standard) application in Xamarin Studio or Visual Studio for Xamarin.Forms.
 Import the SfPullToRefresh control namespace Syncfusion.SfPullToRefresh.XForms and set the SfPullToRefresh control to the ContentPage.
 
 ```xml
@@ -26,10 +26,26 @@ namespace GettingStarted
     public class App : Application
     {
         SfPullToRefresh pullToRefresh;
+        StackLayout layout;
+        Label label;
         public App()
         {
             pullToRefresh= new SfPullToRefresh();
+            layout = new StackLayout();
+            label = new Label();
+            label.Text = "PullableContent";
+            label.BackgroundColor = Color.SkyBlue;
+            layout.Children.Add(label);
+            pullToRefresh.Content = layout;
+            pullToRefresh.Refreshing += PullToRefresh_Refreshing;
             MainPage = new ContentPage { Content = pullToRefresh};
+        }
+
+        private async void PullToRefresh_Refreshing(object sender, EventArgs args)
+        {
+            pullToRefresh.IsRefreshing = true;
+            await Task.Delay(2000);
+            pullToRefresh.IsRefreshing = false;
         }
     }
 } 
