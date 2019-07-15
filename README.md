@@ -25,12 +25,10 @@ namespace GettingStarted
 {
     public class App : Application
     {
-        SfPullToRefresh pullToRefresh;
         StackLayout layout;
         Label label;
         public App()
         {
-            pullToRefresh= new SfPullToRefresh();
             layout = new StackLayout();
             label = new Label();
             label.Text = "PullableContent";
@@ -45,6 +43,8 @@ namespace GettingStarted
         {
             pullToRefresh.IsRefreshing = true;
             await Task.Delay(2000);
+            label.Text = "UpdatedPullableContent";
+            label.BackgroundColor = Color.Green
             pullToRefresh.IsRefreshing = false;
         }
     }
